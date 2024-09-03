@@ -64,7 +64,7 @@ plugins:
         clientSecret: Nah
         enabled: true
     youtube:
-        enabled: "false"
+        enabled: true
 request:
     enabled: true
     includeClientInfo: true
