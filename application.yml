@@ -5,14 +5,11 @@ lavalink:
         - WEB
         - TVHTML5EMBEDDED
     plugins:
-        dependency: com.github.topi314.lavasearch:lavasearch-plugin:4.2.0
+        - dependency: com.github.topi314.lavasearch:lavasearch-plugin:4.2.0
         repository: https://maven.lavalink.dev/releases
         snapshot: false
-        youtube:
-            allowDirectPlaylistIds: true
-            allowDirectVideoIds: true
-            allowSearch: true
-            enabled: true
+        - dependency: "dev.lavalink.youtube:youtube-plugin:1.7.2"
+        snapshot: false # Set to true if you want to use a snapshot version.
     server:
         bufferDurationMs: 400
         filters:
@@ -51,24 +48,41 @@ logging:
     file:
         path: ./logs/
     level:
-        lavalink: INFO
-        root: INFO
-    logback:
-        rollingpolicy:
-            max-file-size: 1GB
-            max-history: 30
-    request:
-        enabled: true
-        includeClientInfo: true
-        includeHeaders: false
-        includePayload: true
-        includeQueryString: true
-        maxPayloadLength: 10000
+level:
+    lavalink: INFO
+    root: INFO
+logback:
+    rollingpolicy:
+        max-file-size: 1GB
+        max-history: 30
+request:
+    enabled: true
+    includeClientInfo: true
+    includeHeaders: false
+    includePayload: true
+    includeQueryString: true
+    maxPayloadLength: 10000
 metrics:
     prometheus:
         enabled: false
         endpoint: /metrics
-plugins: null
+plugins:
+    youtube:
+        allowDirectPlaylistIds: true
+        allowDirectVideoIds: true
+        allowSearch: true
+        enabled: true
+    spotify:
+        enabled: true
+        clientId: "your_spotify_client_id"
+        clientSecret: "your_spotify_client_secret"
+    deezer:
+        enabled: true
+        playlistLoadLimit: 5
+        albumLoadLimit: 5
+        artistLoadLimit: 5
+    appleMusic:
+        enabled: true
 sentry:
     dsn: ""
     environment: ""
@@ -77,3 +91,9 @@ server:
     http2:
         enabled: false
     port: 25995
+    # Additional server configurations for optimization
+    ssl:
+        enabled: false
+    compression:
+        enabled: true
+        mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
