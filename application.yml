@@ -5,11 +5,9 @@ lavalink:
         - WEB
         - TVHTML5EMBEDDED
     plugins:
-        - dependency: com.github.topi314.lavasearch:lavasearch-plugin:4.2.0
-        repository: https://maven.lavalink.dev/releases
-        snapshot: false
-        - dependency: "dev.lavalink.youtube:youtube-plugin:1.7.2"
-        snapshot: false # Set to true if you want to use a snapshot version.
+        - dependency: com.github.topi314.lavasearch:lavasearch-plugin:1.0.0
+        - dependency: com.github.topi314.lavasrc:lavasrc-plugin:4.2.0
+        - dependency: dev.lavalink.youtube:youtube-plugin:1.7.2
     server:
         bufferDurationMs: 400
         filters:
@@ -27,7 +25,6 @@ lavalink:
         gc-warnings: true
         opusEncodingQuality: 10
         password: youshallnotpass
-        pasword: harumi.tech
         playerUpdateInterval: 5
         resamplingQuality: HIGH
         soundcloudSearchEnabled: true
@@ -44,17 +41,30 @@ lavalink:
         useSeekGhosting: true
         youtubePlaylistLoadLimit: 6
         youtubeSearchEnabled: true
-logging:
-    file:
-        path: ./logs/
-    level:
-level:
-    lavalink: INFO
-    root: INFO
 logback:
     rollingpolicy:
         max-file-size: 1GB
         max-history: 30
+logging:
+    file:
+        path: ./logs/
+    level:
+        lavalink: INFO
+        root: INFO
+metrics:
+    prometheus:
+        enabled: false
+        endpoint: /metrics
+plugins:
+    sportify:
+        clientId: ' Nah'
+        clientSecret: ' Nah'
+    spotify:
+        clientId: Nah
+        clientSecret: Nah
+        enabled: true
+    youtube:
+        enabled: "false"
 request:
     enabled: true
     includeClientInfo: true
@@ -62,38 +72,16 @@ request:
     includePayload: true
     includeQueryString: true
     maxPayloadLength: 10000
-metrics:
-    prometheus:
-        enabled: false
-        endpoint: /metrics
-plugins:
-    youtube:
-        allowDirectPlaylistIds: true
-        allowDirectVideoIds: true
-        allowSearch: true
-        enabled: true
-    spotify:
-        enabled: true
-        clientId: "your_spotify_client_id"
-        clientSecret: "your_spotify_client_secret"
-    deezer:
-        enabled: true
-        playlistLoadLimit: 5
-        albumLoadLimit: 5
-        artistLoadLimit: 5
-    appleMusic:
-        enabled: true
 sentry:
     dsn: ""
     environment: ""
 server:
     address: 0.0.0.0
+    compression:
+        enabled: true
+        mime-types: text/html, text/xml, text/plain, text/css, text/javascript, application/javascript, application/json
     http2:
         enabled: false
     port: 25995
-    # Additional server configurations for optimization
     ssl:
         enabled: false
-    compression:
-        enabled: true
-        mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
