@@ -65,6 +65,8 @@ plugins:
         enabled: true
     youtube:
         enabled: true
+        oauth:
+           enabled: true
 request:
     enabled: true
     includeClientInfo: true
