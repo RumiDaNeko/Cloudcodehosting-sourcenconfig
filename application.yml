@@ -24,7 +24,7 @@ lavalink:
         frameBufferDurationMs: 5000
         gc-warnings: true
         opusEncodingQuality: 10
-        password: youshallnotpass
+        password: kiyomi.lava
         playerUpdateInterval: 5
         resamplingQuality: HIGH
         soundcloudSearchEnabled: true
@@ -56,17 +56,22 @@ metrics:
         enabled: false
         endpoint: /metrics
 plugins:
-    sportify:
-        clientId: ' Nah'
-        clientSecret: ' Nah'
-    spotify:
-        clientId: Nah
-        clientSecret: Nah
-        enabled: true
+    lavasrc:
+        sources:
+            applemusic: false
+            deezer: false
+            flowerytts: false
+            spotify: true
+            yandexmusic: false
+            youtube: true
+        spotify:
+            clientId: e6f84fbec2b44a77bf35a20c5ffa54b8
+            clientSecret: 498f461b962443cfaf9539c610e2ea81
+            enabled: true
     youtube:
         enabled: true
         oauth:
-           enabled: true
+            enabled: true
 request:
     enabled: true
     includeClientInfo: true
@@ -84,6 +89,6 @@ server:
         mime-types: text/html, text/xml, text/plain, text/css, text/javascript, application/javascript, application/json
     http2:
         enabled: false
-    port: 25995
+    port: 25862
     ssl:
         enabled: false
