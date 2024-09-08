@@ -65,8 +65,8 @@ plugins:
             yandexmusic: false
             youtube: true
         spotify:
-            clientId: e6f84fbec2b44a77bf35a20c5ffa54b8
-            clientSecret: 498f461b962443cfaf9539c610e2ea81
+            clientId: addurown
+            clientSecret: addurown
             enabled: true
     youtube:
         enabled: true
