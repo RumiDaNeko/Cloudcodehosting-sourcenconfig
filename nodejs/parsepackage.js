@@ -7,11 +7,11 @@ function traverseDirectory(dir, fileList = []) {
 
   files.forEach((file) => {
     const fullPath = path.join(dir, file);
-    
+
     if (file === "node_modules") {
       return;
     }
-    
+
     if (fs.statSync(fullPath).isDirectory()) {
       traverseDirectory(fullPath, fileList);
     } else {
@@ -20,6 +20,16 @@ function traverseDirectory(dir, fileList = []) {
   });
 
   return fileList;
+}
+
+function isLocalPath(moduleName) {
+  return (
+    moduleName.startsWith("./") ||
+    moduleName.startsWith("../") ||
+    moduleName.startsWith("/") || // Absolute paths
+    moduleName.includes("__dirname") || // Handles dynamic imports using __dirname
+    moduleName.includes("path.join") // Handles path.join constructs
+  );
 }
 
 function findRequiredPackages(files) {
@@ -33,17 +43,21 @@ function findRequiredPackages(files) {
 
       let match;
       while ((match = requireRegex.exec(content)) !== null) {
-        packageSet.add(match[1]);
+        if (!isLocalPath(match[1])) {
+          packageSet.add(match[1]);
+        }
       }
 
       while ((match = importRegex.exec(content)) !== null) {
-        packageSet.add(match[1]);
+        if (!isLocalPath(match[1])) {
+          packageSet.add(match[1]);
+        }
       }
     }
   });
 
   return Array.from(packageSet).filter(
-    (pkg) => !pkg.startsWith(".") // Ignore local file imports
+    (pkg) => !pkg.startsWith(".") // Double-check to ignore local imports
   );
 }
 
