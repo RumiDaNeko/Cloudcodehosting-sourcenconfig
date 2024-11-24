@@ -44,10 +44,10 @@ lavalink:
       channelMix: true
       lowPass: true
   plugins:
-    - dependency: dev.arbjerg.lavalink:lavalink-lavasearch-plugin:3.0.0
-    - dependency: dev.arbjerg.lavalink:lavalink-lavasrc-plugin:3.0.0
-    - dependency: dev.arbjerg.lavalink:lavalink-youtube-plugin:3.0.0
-    - dependency: dev.arbjerg.lavalink:lavalink-sponsorblock-plugin:3.0.0
+    - dependency: com.github.topi314.lavasearch:lavasearch-plugin:1.0.0
+    - dependency: com.github.TopiSenpai.LavaSrc:lavasrc-plugin:3.2.10
+    - dependency: dependency: dev.lavalink.youtube:youtube-plugin:1.8.3
+    - dependency: dependency: com.github.topi314.sponsorblock:sponsorblock-plugin:3.0.1
 
 plugins:
   lavasrc:
