@@ -7,6 +7,11 @@ function traverseDirectory(dir, fileList = []) {
 
   files.forEach((file) => {
     const fullPath = path.join(dir, file);
+    
+    if (file === "node_modules") {
+      return;
+    }
+    
     if (fs.statSync(fullPath).isDirectory()) {
       traverseDirectory(fullPath, fileList);
     } else {
@@ -53,7 +58,7 @@ function installPackages(packages) {
 }
 
 function main() {
-  const projectDir = path.resolve(".");
+  const projectDir = path.resolve("/home/container");
   const packageJsonPath = path.join(projectDir, "package.json");
 
   // Check if package.json exists, create if not
