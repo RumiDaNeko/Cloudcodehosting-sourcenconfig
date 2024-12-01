@@ -1,6 +1,20 @@
 import os
 import re
 import subprocess
+import sys
+import pkgutil
+
+def is_standard_library(module_name):
+    """Check if the module is a Python standard library."""
+    if module_name in sys.builtin_module_names:
+        return True
+
+    stdlib_path = getattr(sys, 'prefix', '') + '/lib/python'  # Standard lib path
+    for path in sys.path:
+        if path.startswith(stdlib_path):
+            if pkgutil.find_loader(module_name):
+                return True
+    return False
 
 def traverse_directory(dir_path, file_list=None):
     if file_list is None:
@@ -29,21 +43,19 @@ def is_local_path(module_name):
     )
 
 def find_required_packages(files):
-    package_set = set()
-    import_regex = re.compile(r'^\s*(?:from|import)\s+([\w.]+)', re.MULTILINE)
+    packages = set()
+    import_regex = r'^\s*(?:import|from)\s+([\w\.]+)'
 
     for file in files:
-        if file.endswith(".py"):
-            with open(file, "r", encoding="utf-8") as f:
-                content = f.read()
-                matches = import_regex.findall(content)
-                for match in matches:
-                    # Exclude local modules
-                    if not is_local_path(match):
-                        base_package = match.split(".")[0]  # Only the root package
-                        package_set.add(base_package)
+        with open(file, 'r') as f:
+            for line in f:
+                match = re.match(import_regex, line)
+                if match:
+                    module_name = match.group(1).split('.')[0]
+                    if not is_standard_library(module_name):
+                        packages.add(module_name)
 
-    return list(package_set)
+    return list(packages)
 
 def install_packages(packages):
     if packages:
