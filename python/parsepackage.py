@@ -1,21 +1,22 @@
 import os
 import re
 import subprocess
-import json
 
 def traverse_directory(dir_path, file_list=None):
     if file_list is None:
         file_list = []
-    
+
     for root, dirs, files in os.walk(dir_path):
-        # Skip node_modules or other directories
-        if "node_modules" in dirs:
-            dirs.remove("node_modules")
-        
+        # Skip Python virtual environment directories
+        if "venv" in dirs:
+            dirs.remove("venv")
+        if ".venv" in dirs:
+            dirs.remove(".venv")
+
         for file in files:
             full_path = os.path.join(root, file)
             file_list.append(full_path)
-    
+
     return file_list
 
 def is_local_path(module_name):
