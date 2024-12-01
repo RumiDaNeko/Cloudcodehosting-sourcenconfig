@@ -2,6 +2,28 @@ import os
 import re
 import subprocess
 import io  # Use for encoding
+import sys
+import os
+import pkgutil
+import re
+
+def is_standard_library(module_name):
+    """Check if a module is part of the Python standard library."""
+    if module_name in sys.builtin_module_names:  # Check built-in modules
+        return True
+
+    # Get the path to the standard library
+    stdlib_paths = [os.path.dirname(os.__file__)]
+    if hasattr(sys, 'real_prefix'):  # For virtualenvs
+        stdlib_paths.append(os.path.join(sys.real_prefix, 'lib'))
+
+    for stdlib_path in stdlib_paths:
+        for root, dirs, files in os.walk(stdlib_path):
+            if f"{module_name}.py" in files or module_name in dirs:
+                return True
+
+    # In Python 2.x, `pkgutil` might not work consistently for all standard libraries
+    return pkgutil.find_loader(module_name) is not None
 
 def traverse_directory(dir_path, file_list=None):
     if file_list is None:
@@ -30,22 +52,20 @@ def is_local_path(module_name):
     )
 
 def find_required_packages(files):
-    package_set = set()
-    import_regex = re.compile(r'^\s*(?:from|import)\s+([\w.]+)', re.MULTILINE)
+    packages = set()
+    import_regex = r'^\s*(?:import|from)\s+([\w\.]+)'
 
     for file in files:
-        if file.endswith(".py"):
-            with io.open(file, "r", encoding="utf-8") as f:  # Use io.open for encoding in Python 2.7
-                content = f.read()
-                matches = import_regex.findall(content)
-                for match in matches:
-                    # Exclude local modules
-                    if not is_local_path(match):
-                        base_package = match.split(".")[0]  # Only the root package
-                        package_set.add(base_package)
+        with open(file, 'r') as f:
+            for line in f:
+                match = re.match(import_regex, line)
+                if match:
+                    module_name = match.group(1).split('.')[0]
+                    if not is_standard_library(module_name):  # Exclude standard libraries
+                        packages.add(module_name)
 
-    return list(package_set)
-
+    return list(packages)
+    
 def install_packages(packages):
     if packages:
         print("Installing packages: {0}".format(", ".join(packages)))
