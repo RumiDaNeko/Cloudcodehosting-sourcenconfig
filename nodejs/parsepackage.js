@@ -73,35 +73,12 @@ function installPackages(packages) {
 
 function main() {
   const projectDir = path.resolve("/home/container");
-  const packageJsonPath = path.join(projectDir, "package.json");
-
-  // Check if package.json exists, create if not
-  if (!fs.existsSync(packageJsonPath)) {
-    console.log("No package.json found. Creating a new one...");
-    fs.writeFileSync(
-      packageJsonPath,
-      JSON.stringify(
-        {
-          name: "dynamic-project",
-          version: "1.0.0",
-          description: "Auto-generated package.json",
-          main: "index.js",
-          scripts: {
-            start: "node index.js",
-          },
-          dependencies: {},
-        },
-        null,
-        2
-      )
-    );
-  }
 
   console.log("Scanning all project files for required packages...");
   const files = traverseDirectory(projectDir);
   const packages = findRequiredPackages(files);
 
-  console.log(`Found required packages: ${packages.join(", ")}`);
+  console.log(`Required packages: ${packages.length === 0 ? packages.join(", ") : "None" }`);
   installPackages(packages);
 }
 
