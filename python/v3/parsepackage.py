@@ -111,6 +111,9 @@ def main():
     print(f"Found required packages: {', '.join(packages)}")
 
     # Append only new packages to requirements.txt
+    requirements_path = "/home/container/requirements.txt"
+
+if os.path.exists(requirements_path):
     with open(requirements_path, "r+", encoding="utf-8") as f:
         existing_packages = set(f.read().splitlines())
 
