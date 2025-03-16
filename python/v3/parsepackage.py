@@ -4,6 +4,7 @@ import subprocess
 import sys
 import pkgutil
 import difflib
+import importlib
 
 # Known mappings for common package name differences
 PACKAGE_MAPPING = {
@@ -23,13 +24,13 @@ def is_standard_library(module_name):
     stdlib_path = getattr(sys, 'prefix', '') + '/lib/python'
     for path in sys.path:
         if path.startswith(stdlib_path):
-            if pkgutil.find_loader(module_name):
+            if importlib.util.find_spec(module_name):
                 return True
     return False
 
 def is_package_installed(package_name):
     """Check if a package is installed in the current environment."""
-    return pkgutil.find_loader(package_name) is not None
+    return importlib.util.find_spec(package_name) is not None
 
 def find_closest_package(module_name):
     """Find the closest matching package name."""
