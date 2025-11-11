@@ -27,7 +27,7 @@ function traverseDirectory(dir) {
 
       if (IGNORED_DIRS.has(file)) continue;
       if (isInsideNodeModules(fullPath)) continue;
-
+      
       let stat;
       try {
         stat = fs.statSync(fullPath);
@@ -52,6 +52,7 @@ function isLocalPath(moduleName) {
     moduleName.startsWith("./") ||
     moduleName.startsWith("../") ||
     moduleName.startsWith("/") ||
+    moduleName.startsWith("node:") ||
     moduleName.includes("__dirname") ||
     moduleName.includes("path.join")
   );
