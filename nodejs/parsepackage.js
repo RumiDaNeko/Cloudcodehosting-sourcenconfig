@@ -55,6 +55,7 @@ function isLocalPath(moduleName) {
     moduleName.startsWith("node:") ||
     moduleName.includes("__dirname") ||
     moduleName.includes("path.join") ||
+    moduleName.startsWith("+") ||
     moduleName == "@"
   );
 }
