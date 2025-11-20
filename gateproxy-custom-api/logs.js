@@ -40,17 +40,10 @@ function updateGateConfig(routes) {
   console.log("[Node] gate.yaml updated");
 }
 
-function reloadGate() {
-  console.log("[Node] Reloading Gate...");
-  exec(`pkill -f 'gate' && cd /home/container/gate && ./gate --config gate.yaml &`, (err) => {
-    if (err) console.error("[Node] Error reloading Gate:", err);
-    else console.log("[Node] Gate reloaded successfully");
-  });
-}
 
 // --- Routes ---
 app.get("/", (req, res) => {
-  res.sendFile(`${process.cwd()}/index.html`);
+  res.sendFile(`${process.cwd()}/app/index.html`);
 });
 
 app.post("/add-server", (req, res) => {
@@ -61,7 +54,6 @@ app.post("/add-server", (req, res) => {
   fs.writeFileSync(ROUTES_PATH, JSON.stringify(routes, null, 2));
 
   updateGateConfig(routes);
-  reloadGate();
 
   res.send(`Added ${domain}:${port} and reloaded Gate!`);
 });
