@@ -11,7 +11,6 @@ echo "[Startup] Node.js PID: $NODE_PID"
 
 # --- Start Gate Lite ---
 echo "[Startup] Launching Gate Lite..."
-cd gate || exit 1
 ./gate --config gate.yaml &
 GATE_PID=$!
 echo "[Startup] Gate PID: $GATE_PID"
