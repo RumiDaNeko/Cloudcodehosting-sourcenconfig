@@ -1,0 +1,4 @@
+config:
+  lite:
+    enabled: true
+    routes:
