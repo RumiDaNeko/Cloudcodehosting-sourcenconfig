@@ -24,7 +24,7 @@ if (fs.existsSync(ROUTES_PATH)) {
 // --- Functions ---
 function updateGateConfig(routes) {
   const config = {
-    bind: "0.0.0.0:19132",
+    config: {
     lite: {
       enabled: true,
       routes: Object.keys(routes).map(domain => ({
@@ -32,6 +32,7 @@ function updateGateConfig(routes) {
         backend: routes[domain],
         modifyVirtualHost: true
       }))
+    }
     }
   };
 
@@ -49,7 +50,7 @@ function reloadGate() {
 
 // --- Routes ---
 app.get("/", (req, res) => {
-  res.sendFile(`${process.cwd()}/public/index.html`);
+  res.sendFile(`${process.cwd()}/index.html`);
 });
 
 app.post("/add-server", (req, res) => {
