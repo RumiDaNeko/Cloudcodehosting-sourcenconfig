@@ -32,12 +32,6 @@ function updateGateConfig(routes) {
         backend: routes[domain],
         modifyVirtualHost: true
       }))
-    },
-    bedrock: {
-      enabled: true,
-      configOverrides: {
-        bedrock: { port: 19132 }
-      }
     }
   };
 
