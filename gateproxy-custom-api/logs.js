@@ -6,7 +6,7 @@ import bodyParser from "body-parser";
 
 const app = express();
 const PORT = 24992;
-const GATE_PATH = "/home/container/gate/gate.yaml";
+const GATE_PATH = "/home/container/gate.yaml";
 const ROUTES_PATH = "./routes.json";
 
 // --- Middleware ---
@@ -25,6 +25,7 @@ if (fs.existsSync(ROUTES_PATH)) {
 function updateGateConfig(routes) {
   const config = {
     config: {
+    bind: "0.0.0.0:19132",
     lite: {
       enabled: true,
       routes: Object.keys(routes).map(domain => ({
@@ -50,7 +51,7 @@ app.post("/add-server", (req, res) => {
   const { domain, port, backend } = req.body;
   if (!domain || !port) return res.status(400).send("Missing domain or port");
 
-  routes[domain] = `${backend}`;
+  routes[domain] = `${backend ? backend : port}`;
   fs.writeFileSync(ROUTES_PATH, JSON.stringify(routes, null, 2));
 
   updateGateConfig(routes);
