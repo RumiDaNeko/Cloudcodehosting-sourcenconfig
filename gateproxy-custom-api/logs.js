@@ -5,7 +5,7 @@ import yaml from "js-yaml";
 import bodyParser from "body-parser";
 
 const app = express();
-const PORT = 3000;
+const PORT = 24992;
 const GATE_PATH = "/home/container/gate/gate.yaml";
 const ROUTES_PATH = "./routes.json";
 
@@ -47,10 +47,10 @@ app.get("/", (req, res) => {
 });
 
 app.post("/add-server", (req, res) => {
-  const { domain, port } = req.body;
+  const { domain, port, backend } = req.body;
   if (!domain || !port) return res.status(400).send("Missing domain or port");
 
-  routes[domain] = `127.0.0.1:${port}`;
+  routes[domain] = `${backend}`;
   fs.writeFileSync(ROUTES_PATH, JSON.stringify(routes, null, 2));
 
   updateGateConfig(routes);
