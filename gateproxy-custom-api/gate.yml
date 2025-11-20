@@ -1,5 +1,5 @@
 config:
-  bind: 0.0.0.0:19312
+  bind: 0.0.0.0:19132
   lite:
     enabled: true
     routes:
