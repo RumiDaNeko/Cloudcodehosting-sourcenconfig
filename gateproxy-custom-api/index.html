@@ -1,27 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Add Server</title>
-  <style>
-    body { font-family: sans-serif; padding: 20px; }
-    label { display: block; margin-top: 10px; }
-    input { padding: 5px; width: 300px; }
-    button { margin-top: 10px; padding: 5px 15px; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gate Lite Manager</title>
+<style>
+  body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    max-width: 500px;
+    margin: 50px auto;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #333;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #555;
+  }
+
+  input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+
+  button {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    font-weight: 600;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #45a049;
+  }
+
+  .box {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+  }
+
+  .box h2 {
+    margin-top: 0;
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #333;
+  }
+
+  @media (max-width: 600px) {
+    .container {
+      margin: 20px;
+      padding: 20px;
+    }
+  }
+</style>
 </head>
 <body>
-  <h1>Add a New Bedrock Server</h1>
-  <form action="/add-server" method="post">
-    <label>
-      Domain:
-      <input type="text" name="domain" placeholder="sub.domain.com" required>
-    </label>
-    <label>
-      Port:
-      <input type="number" name="port" placeholder="23456" required>
-    </label>
-    <button type="submit">Add Server</button>
-  </form>
+
+<div class="container">
+  <h1>Gate Lite Manager</h1>
+
+  <div class="box">
+    <h2>Add a New Server</h2>
+    <form action="/add-server" method="post">
+      <div class="form-group">
+        <label for="domain">Domain</label>
+        <input type="text" id="domain" name="domain" placeholder="sub.domain.com" required>
+      </div>
+
+      <div class="form-group">
+        <label for="backend">Backend (IP:Port)</label>
+        <input type="text" id="backend" name="port" placeholder="127.0.0.1:23456" required>
+      </div>
+
+      <button type="submit">Add Server</button>
+    </form>
+  </div>
+
+</div>
+
 </body>
 </html>
