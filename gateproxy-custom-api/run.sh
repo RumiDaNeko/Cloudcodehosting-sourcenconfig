@@ -5,7 +5,7 @@ cd /home/container || exit 1
 
 # --- Start Node.js automation in background ---
 echo "[Startup] Launching Node.js automation..."
-node app/index.js &
+npx --yes tsx ./app/logs.ts &
 NODE_PID=$!
 echo "[Startup] Node.js PID: $NODE_PID"
 
