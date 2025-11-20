@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Server</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    label { display: block; margin-top: 10px; }
+    input { padding: 5px; width: 300px; }
+    button { margin-top: 10px; padding: 5px 15px; }
+  </style>
+</head>
+<body>
+  <h1>Add a New Bedrock Server</h1>
+  <form action="/add-server" method="post">
+    <label>
+      Domain:
+      <input type="text" name="domain" placeholder="sub.domain.com" required>
+    </label>
+    <label>
+      Port:
+      <input type="number" name="port" placeholder="23456" required>
+    </label>
+    <button type="submit">Add Server</button>
+  </form>
+</body>
+</html>
