@@ -2,3 +2,5 @@ config:
   lite:
     enabled: true
     routes:
+      - host: abc.example.com
+        backend: 10.0.0.3:25568
